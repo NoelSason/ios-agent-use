@@ -54,5 +54,5 @@ echo
 echo "done. Next:"
 echo "  cd your-app-project"
 echo "  $BIN_DIR/iosagent init      # writes .iosagent.json"
-echo "  cp $ROOT/driver/AgentDriverUITests.swift YourAppUITests/"
+echo "  $BIN_DIR/iosagent driver YourAppUITests/   # installs the XCUITest driver"
 echo "  $BIN_DIR/iosagent doctor"

@@ -2,7 +2,13 @@
 
 ## 1. The driver file
 
-Copy `driver/AgentDriverUITests.swift` into your UI test target's directory.
+```bash
+iosagent driver YourAppUITests/
+```
+
+That copies `driver/AgentDriverUITests.swift` into your UI test target's
+directory, and is a no-op when the file is already current — so it doubles as
+the way to pick up driver changes after updating this tool.
 
 It is inert unless driven: with no `IOSAGENT_SCRIPT_B64` in its environment it
 throws `XCTSkip`, so `xcodebuild test` behaves exactly as before. Verify that —
