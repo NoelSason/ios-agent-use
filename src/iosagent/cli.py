@@ -381,6 +381,27 @@ def cmd_compare(args) -> int:
     return 0
 
 
+def cmd_driver(args) -> int:
+    """Copy the XCUITest driver into a project's UI test target."""
+    source = Path(__file__).resolve().parent.parent.parent / "driver" / "AgentDriverUITests.swift"
+    if not source.exists():
+        raise UsageError(f"the driver is missing from this install ({source})")
+    dest_dir = Path(args.dest)
+    if not dest_dir.is_dir():
+        raise UsageError(f"{dest_dir} is not a directory — pass your UI test target's folder")
+    dest = dest_dir / source.name
+    if dest.exists() and not args.force:
+        if dest.read_text() == source.read_text():
+            _say(f"{dest} is already up to date")
+            return 0
+        raise UsageError(f"{dest} exists and differs; pass --force to overwrite")
+    shutil.copyfile(source, dest)
+    _say(f"copied {dest}")
+    _say("If your project does not use Xcode 16 folder groups, add it to the "
+         "UI test target in Xcode.")
+    return 0
+
+
 # ---------------------------------------------------------------------------
 # argument parsing
 # ---------------------------------------------------------------------------
@@ -404,6 +425,10 @@ def make_parser() -> argparse.ArgumentParser:
     init.add_argument("--force", action="store_true")
 
     add("doctor", cmd_doctor, "check the toolchain, project and targets")
+
+    drv = add("driver", cmd_driver, "copy the XCUITest driver into a UI test target")
+    drv.add_argument("dest", help="your UI test target's directory")
+    drv.add_argument("--force", action="store_true")
 
     tgt = add("targets", cmd_targets, "list devices and simulators")
     tgt.add_argument("--all", action="store_true", help="include shut-down simulators")

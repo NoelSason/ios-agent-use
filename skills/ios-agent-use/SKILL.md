@@ -7,8 +7,18 @@ description: Drive a real iOS app on a physical device or simulator and see what
 
 Close the loop between writing Swift and knowing whether it worked.
 
-The CLI lives at `~/Desktop/iOS-Agent-Use/bin/iosagent`. Run it from the project
-root — it finds `.iosagent.json` by walking up.
+## Finding the CLI
+
+Use `iosagent` if it is on PATH. Otherwise call
+`"${CLAUDE_PLUGIN_ROOT}/bin/iosagent"` — set whenever this skill is installed as
+a plugin, and correct no matter where the repo lives. Resolve it once per
+session:
+
+```bash
+IOSAGENT="$(command -v iosagent || echo "${CLAUDE_PLUGIN_ROOT}/bin/iosagent")"
+```
+
+Run it from the project root; it finds `.iosagent.json` by walking up.
 
 ## Before anything else
 

@@ -40,16 +40,43 @@ the agent can decide what to tap next instead of guessing at pixels.
 
 ## Install
 
+### As a Claude Code plugin (recommended)
+
+```
+/plugin marketplace add NoelSason/ios-agent-use
+/plugin install ios-agent-use@ios-agent-use
+```
+
+That registers the `ios-agent-use` skill, so an agent knows when to reach for
+this and how to read what comes back. The CLI ships with it at
+`${CLAUDE_PLUGIN_ROOT}/bin/iosagent`.
+
+### As a CLI
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/NoelSason/ios-agent-use/main/install.sh | bash
+```
+
+Clones to `~/.ios-agent-use`, links `iosagent` into `~/.local/bin`, and
+registers the skill if `~/.claude` exists. Or clone it yourself:
+
 ```bash
 git clone https://github.com/NoelSason/ios-agent-use.git
+cd ios-agent-use && ./install.sh
+```
+
+### Then, once per project
+
+```bash
 cd your-app-project
-/path/to/ios-agent-use/bin/iosagent init          # writes .iosagent.json
-cp /path/to/ios-agent-use/driver/AgentDriverUITests.swift YourAppUITests/
-/path/to/ios-agent-use/bin/iosagent doctor
+iosagent init                     # writes .iosagent.json
+iosagent driver YourAppUITests/   # copies the driver into your UI test target
+iosagent doctor
 ```
 
 `doctor` checks the toolchain, the project, and which devices are reachable, and
-tells you what is missing.
+tells you what is missing. Requirements: macOS, Xcode, Python 3. That is all —
+there is nothing to `pip install` and nothing to keep running.
 
 ## The loop
 
