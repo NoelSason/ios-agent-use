@@ -1,0 +1,20 @@
+{
+  "launch": {
+    "mode": "launch",
+    "args": ["LECTRA_UI_TESTING"],
+    "env": {"LECTRA_UI_TEST_SCENARIO": "library"}
+  },
+  "capture": {"after_every_step": true, "tree": true, "tree_depth": 50},
+  "steps": [
+    {"action": "assertExists", "id": "library.new", "type": "button"},
+    {"action": "tap", "id": "library.new", "type": "button"},
+    {"action": "waitFor", "label": "Notebook", "type": "button", "timeout": 5},
+    {"action": "tap", "label": "Notebook", "type": "button"},
+    {"action": "waitFor", "id": "editor.canvas", "timeout": 15},
+    {"action": "drag",
+      "from": {"id": "editor.canvas", "norm": [0.3, 0.35]},
+      "to":   {"id": "editor.canvas", "norm": [0.7, 0.65]},
+      "duration": 0.4},
+    {"action": "assertExists", "id": "editor.topBar.undo"}
+  ]
+}

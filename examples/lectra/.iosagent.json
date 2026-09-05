@@ -1,0 +1,18 @@
+{
+  "project": "Lectra/Lectra.xcodeproj",
+  "scheme": "Lectra",
+  "bundle_id": "com.canvascope.Lectra",
+  "ui_test_target": "LectraUITests",
+  "driver_class": "AgentDriverUITests",
+  "build_wrapper": "scripts/xcbuild.sh",
+  "artifacts": "~/.iosagent/runs",
+  "default_target": "ipad",
+  "targets": {
+    "ipad": {"kind": "device", "name": "My iPad"},
+    "sim": {"kind": "simulator", "name": "iPad Pro 11-inch (M5)"}
+  },
+  "launch": {
+    "args": ["LECTRA_UI_TESTING"],
+    "env": {"LECTRA_UI_TEST_SCENARIO": "library"}
+  }
+}
